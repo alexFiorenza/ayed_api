@@ -1,7 +1,6 @@
 
 #ifndef _MAIN
 #define _MAIN
-
 #include <iostream>
 #include "biblioteca/funciones/strings.hpp"
 #include "biblioteca/funciones/tokens.hpp"
@@ -16,7 +15,8 @@ using namespace std;
 
 int main()
 {
-   cout << "Hello World" << endl;
+   string word = "Esto es una prueba";
+   cout << lastIndexOf(word, 'e') << endl;
    return 0;
 }
 
