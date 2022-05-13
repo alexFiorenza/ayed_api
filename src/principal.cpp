@@ -15,8 +15,7 @@ using namespace std;
 
 int main()
 {
-   string word = "Esto es una prueba";
-   cout << lastIndexOf(word, 'e') << endl;
+   cout << intToString(12345) << endl;
    return 0;
 }
 

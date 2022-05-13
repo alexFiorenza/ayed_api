@@ -145,37 +145,107 @@ int lastIndexOf(string s, char c)
 
 int indexOfN(string s, char c, int n)
 {
-   return 0;
+   int occurrences = 0;
+   int position_of_occurrence = 0;
+   if (n <= 0)
+      position_of_occurrence = -1;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if (occurrences == n)
+      {
+         position_of_occurrence = i - 1;
+         break;
+      }
+      if (s[i] == c)
+      {
+         occurrences++;
+      }
+   }
+   if (n > occurrences)
+   {
+      position_of_occurrence = length(s);
+   }
+   return position_of_occurrence;
 }
 
 int charToInt(char c)
 {
-   return 0;
+   int integer = 0;
+   if (c >= '0' && c <= '9')
+   {
+      integer = c - 48;
+   }
+   else
+   {
+      if (c >= 'A' && c <= 'Z')
+      {
+         integer = (int)c - 55;
+      }
+      else
+      {
+         integer = (int)c - 87;
+      }
+   }
+   return integer;
 }
 
 char intToChar(int i)
 {
-   return 'X';
+   char charValue;
+   if (i >= 0 && i <= 9)
+   {
+      charValue = i + '0';
+   }
+   else if (i >= 65 && i <= 90)
+   {
+      charValue = (char)i;
+      return charValue;
+   }
+   else
+   {
+      return ' ';
+   }
+   return charValue;
 }
 
 int getDigit(int n, int i)
 {
-   return 0;
+   for (int j = 0; j < i; j++)
+   {
+      n = n / 10;
+   }
+   return n % 10;
 }
 
 int digitCount(int n)
 {
-   return 0;
+   int counter = 0;
+   while (n > 0)
+   {
+      counter++;
+      n = n / 10;
+   }
+   return counter;
 }
 
 string intToString(int i)
 {
-   return "";
+   string string_to_return;
+   for (int j = 0; j < digitCount(i); j++)
+   {
+      string_to_return += intToChar(getDigit(i, j));
+   }
+   string tmp = "";
+   // Reverse
+   for (int h = length(string_to_return) - 1; h >= 0; h--)
+   {
+      tmp += string_to_return[h];
+   }
+   return tmp;
 }
 
 int stringToInt(string s, int b) // ok
 {
-   return 0;
 }
 
 int stringToInt(string s) // ok
