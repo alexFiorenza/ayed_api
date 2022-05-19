@@ -246,6 +246,15 @@ string intToString(int i)
 
 int stringToInt(string s, int b) // ok
 {
+   int sum = 0;
+   int exponent = 0;
+   // Reverse
+   for (int i = length(s) - 1; i >= 0; i--)
+   {
+      sum += pow(b, exponent) * charToInt(s[i]);
+      exponent++;
+   }
+   return sum;
 }
 
 int stringToInt(string s) // ok
@@ -265,7 +274,7 @@ char stringToChar(string s)
 
 string stringToString(string s)
 {
-   return "";
+   return s;
 }
 
 string doubleToString(double d)
@@ -280,7 +289,14 @@ double stringToDouble(string s)
 
 bool isEmpty(string s)
 {
-   return true;
+   if (length(s) > 0)
+   {
+      return false;
+   }
+   else
+   {
+      return true;
+   }
 }
 
 bool startsWith(string s, string x)

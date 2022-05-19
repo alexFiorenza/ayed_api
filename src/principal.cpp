@@ -15,7 +15,8 @@ using namespace std;
 
 int main()
 {
-   cout << intToString(12345) << endl;
+   bool returnedValue = isEmpty("     ");
+   cout << std::boolalpha << returnedValue << endl;
    return 0;
 }
 
