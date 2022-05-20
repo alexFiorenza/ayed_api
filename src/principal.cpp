@@ -15,8 +15,11 @@ using namespace std;
 
 int main()
 {
-   bool returnedValue = isEmpty("     ");
-   cout << std::boolalpha << returnedValue << endl;
+   string s = "Hola";
+   int n = 10;
+   char c = 'X';
+   string r = cpad(s, n, c);
+   cout << "[" << r << "]" << endl;
    return 0;
 }
 

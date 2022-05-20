@@ -259,17 +259,26 @@ int stringToInt(string s, int b) // ok
 
 int stringToInt(string s) // ok
 {
-   return 0;
+   int integer = 0;
+   int test = 0;
+   for (int i = 0; i < length(s); i++)
+   {
+      // Se le agrega un 0 y se le suma el num a añadir
+      integer = integer * 10 + (int(s[i] - 48));
+   }
+   return integer;
 }
 
 string charToString(char c)
 {
-   return "";
+   string charConverted(1, c);
+   return charConverted;
 }
 
 char stringToChar(string s)
 {
-   return 'X';
+   char stringConverted = s[0];
+   return stringConverted;
 }
 
 string stringToString(string s)
@@ -279,14 +288,37 @@ string stringToString(string s)
 
 string doubleToString(double d)
 {
-   return "";
+   char buffer[100];
+   sprintf(buffer, "%lf", d);
+   string ret = buffer;
+   return ret;
 }
-
 double stringToDouble(string s)
 {
-   return 1.1;
+   double before = 0;
+   double after = 0.0;
+   bool hasDot = false;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if (s[i] == '.')
+      {
+         hasDot = true;
+         continue;
+      }
+      if (hasDot)
+      {
+         // Parte decimal
+         after += (double)charToInt((char)s[i]) / 10;
+         hasDot = false;
+      }
+      else
+      {
+         // Parte entera
+         before = before * 10 + (double)charToInt((char)s[i]);
+      }
+   }
+   return before + after;
 }
-
 bool isEmpty(string s)
 {
    if (length(s) > 0)
@@ -301,72 +333,164 @@ bool isEmpty(string s)
 
 bool startsWith(string s, string x)
 {
-   return true;
+   int indexOfWord = indexOf(s, x);
+   if (indexOfWord < 0)
+      return false;
+   else if (indexOfWord == 0)
+      return true;
+   else
+      return false;
 }
 
 bool endsWith(string s, string x)
 {
-   return true;
+   int indexOfWord = indexOf(s, x);
+   if (indexOfWord < 0)
+      // Esta contenida
+      return false;
+   else if (indexOfWord == 0)
+      // No esta al inicio
+      return false;
+   else if (length(s) - indexOfWord == length(x))
+      return true;
+   return false;
 }
 
 bool contains(string s, char c)
 {
-   return true;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if ((char)s[i] == c)
+      {
+         return true;
+      }
+   }
+   return false;
 }
 
 string replace(string s, char oldChar, char newChar)
 {
-   return "";
+   string modifiedString = s;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if ((char)s[i] == oldChar)
+      {
+         modifiedString[i] = newChar;
+      }
+   }
+   return modifiedString;
 }
 
 string insertAt(string s, int pos, char c)
 {
-   return "";
+   string modifiedString;
+   string firstQuarterString = substring(s, 0, pos + 1);
+   firstQuarterString[length(firstQuarterString) - 1] = c;
+   string secondQuarterString = substring(s, pos, length(s));
+   modifiedString = firstQuarterString + secondQuarterString;
+   return modifiedString;
 }
 
 string removeAt(string s, int pos)
 {
-   return "";
+   string modifiedString;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if (i == pos)
+         continue;
+      modifiedString += s[i];
+   }
+   return modifiedString;
 }
 
 string ltrim(string s)
 {
-   return "";
+   string modifiedString = s;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if (s[i] == ' ' && modifiedString[0] == ' ')
+      {
+         modifiedString = removeAt(modifiedString, 0);
+      }
+   }
+   return modifiedString;
 }
 
 string rtrim(string s)
 {
-   return "";
+   string modifiedString = s;
+   for (int i = length(s) - 1; i >= 0; i--)
+   {
+      if (s[i] == ' ' && modifiedString[length(modifiedString) - 1] == ' ')
+      {
+         modifiedString = removeAt(modifiedString, length(modifiedString) - 1);
+      }
+   }
+   return modifiedString;
 }
 
 string trim(string s)
 {
-   return "";
+   string modifiedString = s;
+   modifiedString = ltrim(modifiedString);
+   modifiedString = rtrim(modifiedString);
+   return modifiedString;
 }
 
 string replicate(char c, int n)
 {
-   return "";
+   string replicatedString;
+   for (int i = 0; i < n; i++)
+   {
+      replicatedString += c;
+   }
+   return replicatedString;
 }
 
 string spaces(int n)
 {
-   return "";
+   string replicatedString;
+   for (int i = 0; i < n; i++)
+   {
+      replicatedString += ' ';
+   }
+   return replicatedString;
 }
 
 string lpad(string s, int n, char c)
 {
-   return "";
+   if (length(s) == n)
+      return s;
+   string modifiedString = s;
+   for (int i = 0; i < (n - length(s)); i++)
+   {
+      modifiedString = insertAt(modifiedString, 0, c);
+   }
+   return modifiedString;
 }
 
 string rpad(string s, int n, char c)
 {
-   return "";
+   if (length(s) == n)
+      return s;
+   string modifiedString = s + ' ';
+   for (int i = 0; i < (n - length(s)); i++)
+   {
+      modifiedString = insertAt(modifiedString, length(modifiedString) - 1, c);
+   }
+   modifiedString = removeAt(modifiedString, n);
+   return modifiedString;
 }
 
 string cpad(string s, int n, char c)
 {
-   return "";
+   // if (length(s) == n)
+   //    return s;
+   // int newIntegerToDistribute = n / 2;
+   // string modifiedString = s;
+   // modifiedString = lpad(s, newIntegerToDistribute, c);
+   // modifiedString = rpad(s, newIntegerToDistribute, c);
+   // return modifiedString;
 }
 
 bool isDigit(char c)
