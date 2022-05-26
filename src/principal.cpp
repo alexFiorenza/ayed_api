@@ -15,11 +15,12 @@ using namespace std;
 
 int main()
 {
-   string s = "Hola";
-   int n = 10;
-   char c = 'X';
-   string r = cpad(s, n, c);
-   cout << "[" << r << "]" << endl;
+   double x = 25.7;
+   double y = 36.9;
+   if (cmpDouble(x, y) < 0)
+   {
+      cout << x << " es menor que: " << y << endl;
+   }
    return 0;
 }
 

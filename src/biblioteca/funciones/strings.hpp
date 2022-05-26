@@ -484,63 +484,94 @@ string rpad(string s, int n, char c)
 
 string cpad(string s, int n, char c)
 {
-   // if (length(s) == n)
-   //    return s;
-   // int newIntegerToDistribute = n / 2;
-   // string modifiedString = s;
-   // modifiedString = lpad(s, newIntegerToDistribute, c);
-   // modifiedString = rpad(s, newIntegerToDistribute, c);
-   // return modifiedString;
+   if (length(s) == n)
+      return s;
+   string modifiedString = s;
+   int distributionChar = (n - length(s)) / 2;
+   modifiedString = lpad(s, length(s) + distributionChar, c);
+   modifiedString = rpad(modifiedString, n, c);
+   return modifiedString;
 }
 
 bool isDigit(char c)
 {
-   return true;
+   if (c >= '0' && c <= '9')
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
 }
 
 bool isLetter(char c)
 {
-   return true;
+   return isDigit(c) ? false : true;
 }
 
 bool isUpperCase(char c)
 {
-   return true;
+   return c >= 'A' && c <= 'Z' ? true : false;
 }
 
 bool isLowerCase(char c)
 {
-   return true;
+   return !isUpperCase(c);
 }
 
 char toUpperCase(char c)
 {
-   return 'X';
+   if (c >= 'a' && c <= 'z')
+   {
+      return c - ('a' - 'A');
+   }
+   else
+   {
+      return c;
+   }
 }
 
 char toLowerCase(char c)
 {
-   return 'X';
+   if (c >= 'A' && c <= 'Z')
+   {
+      return c + ('a' - 'A');
+   }
+   else
+   {
+      return c;
+   }
 }
 
 string toUpperCase(string s)
 {
-   return "";
+   string modifiedString = "";
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      modifiedString += toUpperCase(s[i]);
+   }
+   return modifiedString;
 }
 
 string toLowerCase(string s)
 {
-   return "";
+   string modifiedString = "";
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      modifiedString += toLowerCase(s[i]);
+   }
+   return modifiedString;
 }
 
 int cmpString(string a, string b)
 {
-   return 0;
+   return a < b ? -1 : 1;
 }
 
 int cmpDouble(double a, double b)
 {
-   return 0;
+   return a < b ? -1 : 1;
 }
 
 #endif
