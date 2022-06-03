@@ -15,12 +15,11 @@ using namespace std;
 
 int main()
 {
-   double x = 25.7;
-   double y = 36.9;
-   if (cmpDouble(x, y) < 0)
-   {
-      cout << x << " es menor que: " << y << endl;
-   }
+   string s = "John";
+   char sep = '|';
+   string t = "John";
+   int p = findToken(s, sep, t);
+   cout << p << endl;
    return 0;
 }
 

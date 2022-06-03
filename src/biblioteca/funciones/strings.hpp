@@ -6,6 +6,7 @@
 #include <math.h>
 using namespace std;
 
+// Returning the length of a string.
 int length(string s)
 {
    int i = 0;
@@ -16,6 +17,7 @@ int length(string s)
    return i;
 }
 
+// Counting the number of times a character appears in a string.
 int charCount(string s, char c)
 {
    int i = 0, counter_word = 0;
@@ -43,6 +45,7 @@ string substring(string s, int d, int h)
    return word;
 }
 
+// Returning the substring of a string from a given position.
 string substring(string s, int d) // ok
 {
    string word;
@@ -74,7 +77,7 @@ int indexOf(string s, char c) // ok`
    return word_position;
 }
 
-int indexOf(string s, char c, int offSet) // ok
+int indexOf(string s, char c, int offSet)
 {
    int word_position;
    bool assignedValue = false;
@@ -92,7 +95,8 @@ int indexOf(string s, char c, int offSet) // ok
    return word_position;
 }
 
-int indexOf(string s, string toSearch) // ok
+// Searching for a word in a string.
+int indexOf(string s, string toSearch)
 {
    int word_position = 0;
    bool assignedValue = false;
@@ -126,6 +130,7 @@ int indexOf(string s, string toSearch, int offset) // ok
    return word_position;
 }
 
+// Returning the last index of a character in a string.
 int lastIndexOf(string s, char c)
 {
    int word_position;
@@ -143,6 +148,7 @@ int lastIndexOf(string s, char c)
    return word_position;
 }
 
+// Returning the position of the nth occurrence of a character in a string.
 int indexOfN(string s, char c, int n)
 {
    int occurrences = 0;
@@ -217,6 +223,7 @@ int getDigit(int n, int i)
    return n % 10;
 }
 
+// Counting the number of digits of a number.
 int digitCount(int n)
 {
    int counter = 0;
@@ -356,6 +363,7 @@ bool endsWith(string s, string x)
    return false;
 }
 
+// Checking if a string contains a character.
 bool contains(string s, char c)
 {
    for (int i = 0; s[i] != '\0'; i++)
@@ -457,6 +465,7 @@ string spaces(int n)
    return replicatedString;
 }
 
+// Adding a character to the left of a string.
 string lpad(string s, int n, char c)
 {
    if (length(s) == n)
@@ -469,6 +478,7 @@ string lpad(string s, int n, char c)
    return modifiedString;
 }
 
+// Adding a character to the right of a string.
 string rpad(string s, int n, char c)
 {
    if (length(s) == n)

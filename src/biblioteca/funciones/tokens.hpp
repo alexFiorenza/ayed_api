@@ -6,31 +6,108 @@
 #include "strings.hpp"
 using namespace std;
 
-int tokenCount(string s,char sep)
+// Counting the number of tokens in a string.
+int tokenCount(string s, char sep)
 {
-   return 0;
+   int counter = 1;
+   if (length(s) == 0)
+      return 0;
+   for (int i = 0; s[i] != '\0'; i++)
+   {
+      if (s[i] == sep && s[i + 1] != '\0')
+      {
+         counter++;
+      }
+      /* code */
+   }
+   return counter;
 }
 
-void addToken(string& s,char sep,string t)
+// Adding a token to the string.
+void addToken(string &s, char sep, string t)
 {
+   if (length(t) != 0 && !contains(t, sep))
+   {
+      s += lpad(t, length(t) + 1, sep);
+   }
 }
 
-string getTokenAt(string s,char sep, int i)
+string getTokenAt(string s, char sep, int i)
 {
-   return "";
+   int occurences = charCount(s, sep);
+   string newString = s;
+   string lastWord = "";
+   int counter = 0;
+   if (tokenCount(s, sep) - 1 < i || tokenCount(s, sep) == 0 || charCount(s, sep) == 0)
+      return s;
+   for (int j = 0; s[j] != '\0'; j++)
+   {
+      if (s[j] == sep && s[j + 1] != '\0' || occurences == counter)
+      {
+         newString = substring(s, lastWord != "" ? length(lastWord) : 0, occurences != counter ? j : length(s));
+         lastWord += newString + sep;
+         if (counter < i)
+         {
+            counter++;
+         }
+         else
+         {
+            break;
+         }
+      }
+   }
+   return newString;
 }
 
-void removeTokenAt(string& s,char sep, int i)
+void removeTokenAt(string &s, char sep, int i)
 {
+   if (tokenCount(s, sep) != 0 && charCount(s, sep) != 0)
+   {
+      string tokenToRemove = getTokenAt(s, sep, i);
+      string tmp;
+      int indexOfToken = indexOf(s, tokenToRemove);
+      string first_half = substring(s, 0, indexOfToken - 1);
+      string second_half = substring(s, i != 0 ? indexOfToken + length(tokenToRemove) : indexOfToken + length(tokenToRemove) + 1, length(s));
+      tmp = first_half + second_half;
+      s = tmp;
+   }
 }
 
-void setTokenAt(string& s,char sep, string t,int i)
+void setTokenAt(string &s, char sep, string t, int i)
 {
+   if (tokenCount(s, sep) != 0 && charCount(s, sep) != 0)
+   {
+      string tokenToRemove = getTokenAt(s, sep, i);
+      string tmp;
+      int indexOfToken = indexOf(s, tokenToRemove);
+      string first_half = substring(s, 0, indexOfToken);
+      string second_half = t + substring(s, indexOfToken + length(tokenToRemove), length(s));
+      tmp = first_half + second_half;
+      s = tmp;
+   }
 }
 
-int findToken(string s,char sep, string t)
+int findToken(string s, char sep, string t)
 {
-   return 0;
+   int ocurrences = charCount(s, sep);
+   int index = -1;
+   if (tokenCount(s, sep) != 0 && indexOf(s, t) != -1)
+   {
+      for (int i = 0; i <= ocurrences; i++)
+      {
+         string possibleToken = getTokenAt(s, sep, i);
+         if (possibleToken == t)
+         {
+            index = i;
+            break;
+         }
+         else
+         {
+            index = -1;
+         }
+      }
+   }
+   return index;
 }
 
 #endif
