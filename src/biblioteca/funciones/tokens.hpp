@@ -18,7 +18,6 @@ int tokenCount(string s, char sep)
       {
          counter++;
       }
-      /* code */
    }
    return counter;
 }
@@ -32,6 +31,7 @@ void addToken(string &s, char sep, string t)
    }
 }
 
+// Getting the token at the given index.
 string getTokenAt(string s, char sep, int i)
 {
    int occurences = charCount(s, sep);
@@ -59,6 +59,7 @@ string getTokenAt(string s, char sep, int i)
    return newString;
 }
 
+// Removing the token at the given index.
 void removeTokenAt(string &s, char sep, int i)
 {
    if (tokenCount(s, sep) != 0 && charCount(s, sep) != 0)
@@ -73,6 +74,7 @@ void removeTokenAt(string &s, char sep, int i)
    }
 }
 
+// Replacing the token at the given index with the given string.
 void setTokenAt(string &s, char sep, string t, int i)
 {
    if (tokenCount(s, sep) != 0 && charCount(s, sep) != 0)
@@ -87,6 +89,7 @@ void setTokenAt(string &s, char sep, string t, int i)
    }
 }
 
+// Finding the index of a token in a string.
 int findToken(string s, char sep, string t)
 {
    int ocurrences = charCount(s, sep);

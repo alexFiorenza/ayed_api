@@ -3,96 +3,138 @@
 
 #include <iostream>
 #include "../funciones/strings.hpp"
+#include "../funciones/tokens.hpp"
 
 using namespace std;
 
-template<typename T>
+template <typename T>
 struct Coll
 {
+   char sep;
+   string token;
+   int pos;
 };
 
-template<typename T>
+template <typename T>
 Coll<T> coll(char sep)
 {
    Coll<T> c;
+   c.sep = sep;
    return c;
 }
 
-template<typename T>
+template <typename T>
 Coll<T> coll()
 {
    Coll<T> c;
+   c.sep = '|';
    return c;
 }
 
-template<typename T>
+// A function that returns the size of the collection.
+template <typename T>
 int collSize(Coll<T> c)
 {
-   return 0;
+   return tokenCount(c.token, c.sep);
 }
 
-template<typename T>
-void collRemoveAll(Coll<T>& c)
+// Removing all the tokens from the collection.
+template <typename T>
+void collRemoveAll(Coll<T> &c)
 {
+   c.token = "";
 }
 
-template<typename T>
-void collRemoveAt(Coll<T>& c, int p)
+// Removing the token at position p from the collection.
+template <typename T>
+void collRemoveAt(Coll<T> &c, int p)
 {
+   removeTokenAt(c.token, c.sep, p);
 }
 
-template<typename T>
-int collAdd(Coll<T>& c,T t,string tToString(T))
+// Adding a token to the collection.
+template <typename T>
+int collAdd(Coll<T> &c, T t, string tToString(T))
 {
-   return 0;
+   addToken(c.token, c.sep, tToString(t));
+   return collSize<T>(c) - 1;
 }
 
 template <typename T>
-void collSetAt(Coll<T>& c,T t,int p,string tToString(T))
+void collSetAt(Coll<T> &c, T t, int p, string tToString(T))
 {
+   setTokenAt(c.token, c.sep, tToString(t), p);
 }
 
+// Getting the token at position p from the collection.
 template <typename T>
-T collGetAt(Coll<T> c,int p,T tFromString(string))
+T collGetAt(Coll<T> c, int p, T tFromString(string))
 {
-   T t;
-   return t;
+   return tFromString(getTokenAt(c.token, c.sep, p));
 }
 
+// A function that returns the position of the token in the collection that matches the key.
 template <typename T, typename K>
-int collFind(Coll<T> c,K k,int cmpTK(T,K),T tFromString(string))
+int collFind(Coll<T> c, K k, int cmpTK(T, K), T tFromString(string))
 {
-   return 0;
+   int result;
+   T tString;
+   for (int i = 0; i < collSize(c); i++)
+   {
+      tString = collGetAt(c, i, tFromString);
+      result = cmpTK(tString, k);
+      if (result == 0)
+      {
+         return i;
+      }
+   }
+   return -1;
 }
 
 template <typename T>
-void collSort(Coll<T>& c,int cmpTT(T,T),T tFromString(string),string tToString(T))
+void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToString(T))
 {
 }
-
-template<typename T>
+// Checking if the collection has a next value.
+template <typename T>
 bool collHasNext(Coll<T> c)
 {
-   return true;
+   if ((collSize(c) - 1) > 1)
+   {
+      return true
+   }
+   else
+   {
+      return false;
+   }
 }
 
-template<typename T>
-T collNext(Coll<T>& c,T tFromString(string))
+// Returning the next value in the collection.
+template <typename T>
+T collNext(Coll<T> &c, T tFromString(string))
 {
-   T t;
+   c.pos++;
+   T collPos = collGetAt(c, c.pos, tFromString);
+   return collPos;
+}
+
+// Returning the next value in the collection and indicates if you reach the final step of the collection.
+template <typename T>
+T collNext(Coll<T> &c, bool &endOfColl, T tFromString(string))
+{
+   c.pos++;
+   T collPos = collGetAt(c, c.pos, tFromString);
+   if (c.pos == collSize(c))
+   {
+      endOfColl = true;
+   }
    return t;
 }
 
-template<typename T>
-T collNext(Coll<T>& c,bool& endOfColl,T tFromString(string))
+// Resetting the position of the collection to 0.
+template <typename T>
+void collReset(Coll<T> &c)
 {
-   T t;
-   return t;
+   c.pos = 0;
 }
-
-template<typename T>
-void collReset(Coll<T>& c)
-{
-}
-
 #endif

@@ -15,11 +15,9 @@ using namespace std;
 
 int main()
 {
-   string s = "John";
-   char sep = '|';
-   string t = "John";
-   int p = findToken(s, sep, t);
-   cout << p << endl;
+   Coll<string> c = coll<string>();
+   collAdd<string>(c, "alex", stringToString);
+   collAdd<string>(c, "virgilio", stringToString);
    return 0;
 }
 
