@@ -25,9 +25,13 @@ int tokenCount(string s, char sep)
 // Adding a token to the string.
 void addToken(string &s, char sep, string t)
 {
-   if (length(t) != 0 && !contains(t, sep))
+   if (length(t) != 0 && !contains(t, sep) && length(s) != 0)
    {
       s += lpad(t, length(t) + 1, sep);
+   }
+   else
+   {
+      s = t;
    }
 }
 

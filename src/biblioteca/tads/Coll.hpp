@@ -20,6 +20,7 @@ Coll<T> coll(char sep)
 {
    Coll<T> c;
    c.sep = sep;
+   c.pos = 0;
    return c;
 }
 
@@ -28,6 +29,8 @@ Coll<T> coll()
 {
    Coll<T> c;
    c.sep = '|';
+   c.token = "";
+   c.pos = 0;
    return c;
 }
 
@@ -99,9 +102,9 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
 template <typename T>
 bool collHasNext(Coll<T> c)
 {
-   if ((collSize(c) - 1) > 1)
+   if (c.pos < collSize(c))
    {
-      return true
+      return true;
    }
    else
    {
@@ -128,7 +131,11 @@ T collNext(Coll<T> &c, bool &endOfColl, T tFromString(string))
    {
       endOfColl = true;
    }
-   return t;
+   else
+   {
+      endOfColl = false;
+   }
+   return collPos;
 }
 
 // Resetting the position of the collection to 0.
