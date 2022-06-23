@@ -4,39 +4,54 @@
 #include <iostream>
 #include <stdio.h>
 
-template<typename T> void write(FILE* f, T t)
+// A template function that writes a value of type T to a file.
+template <typename T>
+void write(FILE *f, T t)
 {
    // Se debe anteponer esta linea al inicio de la funcion.
    // De otro modo, apareceran errores al momento de actualizar
    // archivos. Esto se debe a un error en la implementacion de Windows.
-   //
-   // fseek(f,0,SEEK_CUR);
+   fseek(f, 0, SEEK_CUR);
+   fwrite(&t, sizeof(T), 1, f);
 }
 
-template<typename T> T read(FILE* f)
+template <typename T>
+T read(FILE *f)
 {
    // Se debe anteponer esta linea al inicio de la funcion.
    // De otro modo, apareceran errores al momento de actualizar
    // archivos. Esto se debe a un error en la implementacion de Windows.
    //
-   // fseek(f,0,SEEK_CUR);
-
+   fseek(f, 0, SEEK_CUR);
    T t;
+   fread(&t, sizeof(T), 1, f);
    return t;
 }
 
-template<typename T> void seek(FILE* f, int n)
+// Seeking to a position in the file.
+template <typename T>
+void seek(FILE *f, int n)
 {
+   // SEEK_SET – It moves file pointer position to the beginning of the file
+   fseek(f, sizeof(T) * n, SEEK_SET)
 }
 
-template<typename T> int fileSize(FILE* f)
+// Getting the size of the file.
+template <typename T>
+int fileSize(FILE *f)
 {
-   return 0;
+   long lastPos = ftell(f) / sizeof(T);
+   // Now I set the current position to last one
+   fseek(f, 0, SEEK_END);
+   int sizeOfFile = ftell(f) / sizeof(T);
+   seek<T>(f, lastPos);
+   return sizeOfFile;
 }
 
-template<typename T> int filePos(FILE* f)
+template <typename T>
+int filePos(FILE *f)
 {
-   return 0;
+   return ftell(f) / sizeof(T);
 }
 
 #endif
