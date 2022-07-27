@@ -43,10 +43,10 @@ int cmpEstadio(Estadio e, char estadio[20])
 
 int descubrirEstadios(Coll<Estadio> &estadios, char estadioNombre[20])
 {
-    int pos = collFind<Estadio>(estadios, estadioNombre, cmpEstadio, estadioToString);
+    int pos = collFind<Estadio>(estadios, estadioNombre, cmpEstadio, estadioFromString);
     if (pos < 0)
     {
-        Estadio e = estadio(estadio, 0, 0);
+        Estadio e = setEstadio(estadioNombre, 0, 0);
         pos = collAdd<Estadio>(estadios, e, estadioToString);
     }
     return pos;
@@ -175,7 +175,7 @@ string estadioToDebug(string mssg, Estadio x)
     return sout.str();
 }
 
-Estadio estadio(string estadio, int partidosJugados, int partidosEmpatados)
+Estadio setEstadio(string estadio, int partidosJugados, int partidosEmpatados)
 {
     Estadio a;
     strcpy(a.estadio, estadio.c_str());

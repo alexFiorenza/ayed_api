@@ -33,7 +33,7 @@ template <typename T>
 void seek(FILE *f, int n)
 {
    // SEEK_SET – It moves file pointer position to the beginning of the file
-   fseek(f, sizeof(T) * n, SEEK_SET)
+   fseek(f, sizeof(T) * n, SEEK_SET);
 }
 
 // Getting the size of the file.

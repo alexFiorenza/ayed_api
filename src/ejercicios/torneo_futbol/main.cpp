@@ -4,6 +4,25 @@
 #include "../../biblioteca/funciones/files.hpp"
 #include "../../biblioteca/tads/Coll.hpp"
 #include "./lib.hpp"
+
+int descubrirEquipo(Coll<Equipo> &equipos, int idEq)
+{
+    int pos = collFind<Equipo, int>(equipos, idEq, cmpEquipoId, equipoToString);
+    return pos;
+}
+
+void imprimirResultado(int ganador, int perdedor, bool empate)
+{
+    if (empate)
+    {
+        cout << "Empate" << endl;
+    }
+    else
+    {
+        cout << "El equipo " << ganador << " gano"
+             << " a " << perdedor << endl;
+    }
+}
 /**
  * Devuelve el id del equipo ganador, dado un codigo de resultado y los ids de los equipos
  *
@@ -40,19 +59,14 @@ bool setPuntosToEquipo(Coll<Equipo> &equipos, int codRes, int idEq1, int idEq2)
         int posIdEq1 = descubrirEquipo(equipos, idEq1);
         int posIdEq2 = descubrirEquipo(equipos, idEq2);
         Equipo elmIdEq1 = collGetAt<Equipo>(equipos, posIdEq1, equipoToString);
-        elmIdEq1.puntos = elm.puntos++;
+        elmIdEq1.puntos = elmIdEq1.puntos++;
         collSetAt<Equipo>(equipos, elmIdEq1, posIdEq1, equipoToString);
         Equipo elmIdEq2 = collGetAt<Equipo>(equipos, posIdEq2, equipoToString);
-        elmIdEq2.puntos = elm.puntos++;
+        elmIdEq2.puntos = elmIdEq1.puntos++;
         collSetAt<Equipo>(equipos, elmIdEq2, posIdEq2, equipoToString);
         imprimirResultado(idEq1, idEq2, true);
         return true;
     }
-}
-int descubrirEquipo(Coll<Equipo> &equipos, int idEq)
-{
-    int pos = collFind<Equipo, int>(equipos, idEq1, cmpEquipoId, equipoToString);
-    return pos;
 }
 /**
  * Leer el archivo RESULTADOS.dat  y agrega cada resultado a la coll resultados
@@ -63,7 +77,7 @@ void subirAMemoriaResultados(Coll<Resultado> &resultados)
 {
     FILE *f = fopen("RESULTADOS.dat,", "r+b");
     Resultado r = read<Resultado>(f);
-    while (!feof)
+    while (!feof(f))
     {
         collAdd<Resultado>(resultados, r, resultadoToString);
         r = read<Resultado>(f);
@@ -74,7 +88,7 @@ void subirAMemoriaEquipos(Coll<Equipo> &equipos)
 {
     FILE *f = fopen("EQUIPOS.dat,", "r+b");
     Equipo e = read<Equipo>(f);
-    while (!feof)
+    while (!feof(f))
     {
         collAdd<Equipo>(equipos, e, equipoToString);
         e = read<Equipo>(f);
@@ -88,23 +102,11 @@ void informarTablaYProcesarEstadios(Coll<Resultado> resultados, Coll<Equipo> &eq
     {
         Resultado resultado = collNext<Resultado>(resultados, resultadoToString);
         int pos = descubrirEstadios(estadios, resultado.estadio);
-        Estadio e = collgetAt<Estadio>(estadios, pos, estadioToString);
+        Estadio e = collGetAt<Estadio>(estadios, pos, estadioToString);
         e.partidosJugados = e.partidosJugados + 1;
         bool huboEmpate = setPuntosToEquipo(equipo, resultado.codRes, resultado.idEq1, resultado.idEq2);
         huboEmpate ? e.partidosEmpatados = e.partidosEmpatados + 1 : false;
-        collsetAt<Estadio>(estadios, e, pos, estadioToString);
-    }
-}
-void imprimirResultado(int ganador, int perdedor, bool empate)
-{
-    if (empate)
-    {
-        cout << "Empate" << endl;
-    }
-    else
-    {
-        cout << "El equipo " << ganador << " gano"
-             << " a " << perdedor << endl;
+        collSetAt<Estadio>(estadios, e, pos, estadioToString);
     }
 }
 void informarEstadios(Coll<Estadio> &estadios)
@@ -118,7 +120,7 @@ void informarEstadios(Coll<Estadio> &estadios)
              << " de" << e.partidosJugados << "partidos" << endl;
     }
 }
-void guardarPuntuaciones(Coll<E> &equipos)
+void guardarPuntuaciones(Coll<Equipo> &equipos)
 {
     FILE *f = fopen("EQUIPOS.dat,", "r+b");
     Equipo registro = read<Equipo>(f);
@@ -126,7 +128,7 @@ void guardarPuntuaciones(Coll<E> &equipos)
     {
         // Estos son los elementos de mi coll
         int pos = descubrirEquipo(equipos, registro.idEq);
-        Estadio elm = collGetAt<Equipo>(equipos, pos, equipoToString);
+        Equipo elm = collGetAt<Equipo>(equipos, pos, equipoToString);
         registro.puntos = elm.puntos;
         seek<Equipo>(f, filePos<Equipo>(f) - 1);
         write<Equipo>(f, registro);
@@ -150,6 +152,6 @@ int main()
     // Mostrar estadios (punto 2)
     informarEstadios(estadios);
     // Punto 3
-    guardarPuntuaciones();
+    guardarPuntuaciones(equipos);
     return 0;
 }
