@@ -146,7 +146,7 @@ int main()
     // Genero mi tad coll de Estadios
     Coll<Estadio> estadios = coll<Estadio>();
     // Procesar punto 1 y 2
-    informarTablaYProcesarEstadios(resultados, equipos);
+    informarTablaYProcesarEstadios(resultados, equipos, estadios);
     // Mostrar estadios (punto 2)
     informarEstadios(estadios);
     // Punto 3
