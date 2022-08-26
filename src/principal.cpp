@@ -12,23 +12,11 @@
 #include "biblioteca/tads/Queue.hpp"
 #include "biblioteca/tads/Coll.hpp"
 using namespace std;
-
 int main()
 {
-   Coll<string> c = coll<string>();
-   collAdd<string>(c, "alex", stringToString);
-   collAdd<string>(c, "virgilio", stringToString);
-   collAdd<string>(c, "dante", stringToString);
-   collAdd<string>(c, "beatriz", stringToString);
-   collAdd<string>(c, "lucifero", stringToString);
-   collReset<string>(c);
-   bool endOfColl;
-   string s = collNext<string>(c, endOfColl, stringToString);
-   while (!endOfColl)
-   {
-      cout << s << endl;
-      s = collNext<string>(c, endOfColl, stringToString);
-   }
+   Array<int> a = array<int>();
+   int pos = arrayAdd<int>(a, 10); // pos = 0
+   cout << pos << endl;
    return 0;
 }
 
