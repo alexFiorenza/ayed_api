@@ -7,6 +7,19 @@
 
 using namespace std;
 
+// A function that doubles the capacity of the array.
+template <typename T>
+void _redimensionarArray(T *&a, int &cap)
+{
+   T *aux = new T[cap * 2];
+   for (int i = 0; i < cap; i++)
+   {
+      aux[i] = a[i];
+   }
+   delete a;
+   a = aux;
+   cap *= 2;
+}
 template <typename T>
 struct Array
 {
@@ -16,7 +29,7 @@ struct Array
 };
 
 template <typename T>
-Array<T> array()
+Array<T> arr()
 {
    Array<T> ret;
    ret.cap = 100;
@@ -28,59 +41,73 @@ Array<T> array()
 template <typename T>
 int arrayAdd(Array<T> &a, T t)
 {
-   int pos = add(a.arr, a.len, t);
-   return pos;
+   if (a.len >= a.cap)
+   {
+      _redimensionarArray(a.arr, a.cap);
+   }
+   return add<T>(a.arr, a.len, t);
 }
 
 template <typename T>
 T *arrayGet(Array<T> a, int p)
 {
-   return NULL;
+   return &a.arr[p];
 }
 
 template <typename T>
 void arraySet(Array<T> &a, int p, T t)
 {
+   T *element = arrayGet<T>(a, p);
+   *element = t;
 }
 
 template <typename T>
 void arrayInsert(Array<T> &a, T t, int p)
 {
+   insert<T>(a.arr, a.len, t, p);
 }
 
 template <typename T>
 int arraySize(Array<T> a)
 {
-   return 0;
+   return a.len;
 }
 
 template <typename T>
 T arrayRemove(Array<T> &a, int p)
 {
-   T t;
-   return t;
+   return remove(a.arr, a.len, p);
 }
 
 template <typename T>
 void arrayRemoveAll(Array<T> &a)
 {
+   delete a;
+   a.len = 0;
+   a.cap = 100;
+   a.arr = new T[a.cap];
 }
 
 template <typename T, typename K>
 int arrayFind(Array<T> a, K k, int cmpTK(T, K))
 {
-   return 0;
+   return find<T, K>(a.arr, a.len, k, cmpTK);
 }
 
 template <typename T>
 int arrayOrderedInsert(Array<T> &a, T t, int cmpTT(T, T))
 {
-   return 0;
+   if (a.len >= a.cap)
+   {
+      _redimensionarArray(a.arr, a.cap);
+   }
+   return orderedInsert<T>(a.arr, a.len, t, cmpTT);
 }
 
 template <typename T>
 void arraySort(Array<T> &a, int cmpTT(T, T))
 {
+   sort<T>(a.arr, a.len, cmpTT);
 }
 
 #endif

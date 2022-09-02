@@ -9,7 +9,7 @@ int add(T arr[], int &len, T e)
 {
    arr[len] = e;
    len++;
-   return len;
+   return len - 1;
 }
 
 // Inserting an element into the array at a specific position.

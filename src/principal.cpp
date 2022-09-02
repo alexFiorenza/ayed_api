@@ -14,9 +14,11 @@
 using namespace std;
 int main()
 {
-   Array<int> a = array<int>();
-   int pos = arrayAdd<int>(a, 10); // pos = 0
-   cout << pos << endl;
+   Array<int> a = arr<int>();
+   int pos = arrayAdd<int>(a, 10);
+   int *p = arrayGet<int>(a, pos);
+   arraySet(a, pos, 20);
+   cout << *arrayGet<int>(a, pos) << endl;
    return 0;
 }
 
