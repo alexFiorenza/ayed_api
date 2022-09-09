@@ -14,11 +14,12 @@
 using namespace std;
 int main()
 {
-   Array<int> a = arr<int>();
-   int pos = arrayAdd<int>(a, 10);
-   int *p = arrayGet<int>(a, pos);
-   arraySet(a, pos, 20);
-   cout << *arrayGet<int>(a, pos) << endl;
+   Map<string, int> m = map<string, int>();
+   mapPut<string, int>(m, "uno", 1);
+   mapPut<string, int>(m, "dos", 2);
+   mapPut<string, int>(m, "tres", 3);
+   int *p = mapGet<string, int>(m, "tres");
+   cout << *p << endl;
    return 0;
 }
 

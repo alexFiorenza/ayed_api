@@ -48,12 +48,14 @@ int arrayAdd(Array<T> &a, T t)
    return add<T>(a.arr, a.len, t);
 }
 
+// Returning the address of the element in the array at position p.
 template <typename T>
 T *arrayGet(Array<T> a, int p)
 {
    return &a.arr[p];
 }
 
+// Setting the value of the element at position p to t.
 template <typename T>
 void arraySet(Array<T> &a, int p, T t)
 {
@@ -61,6 +63,7 @@ void arraySet(Array<T> &a, int p, T t)
    *element = t;
 }
 
+// Inserting an element in the array at position p.
 template <typename T>
 void arrayInsert(Array<T> &a, T t, int p)
 {
@@ -88,6 +91,7 @@ void arrayRemoveAll(Array<T> &a)
    a.arr = new T[a.cap];
 }
 
+// A function that finds the position of an element in an array.
 template <typename T, typename K>
 int arrayFind(Array<T> a, K k, int cmpTK(T, K))
 {
