@@ -119,20 +119,20 @@ bool mapHasNext(Map<K, V> m)
       m.pos++;
       return false;
    }
-   return true;
 }
 
 template <typename K, typename V>
 K mapNextKey(Map<K, V> &m)
 {
-   K k;
-   return k;
+   K key = *arrayGet<K>(m.keys, m.pos);
+   return key;
 }
 
 template <typename K, typename V>
 V *mapNextValue(Map<K, V> &m)
 {
-   return NULL;
+   V *pointer = arrayGet<V>(m.values, m.pos);
+   return pointer;
 }
 
 template <typename K, typename V>
