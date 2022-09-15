@@ -144,11 +144,46 @@ void mapReset(Map<K, V> &m)
 template <typename K, typename V>
 void mapSortByKeys(Map<K, V> &m, int cmpKK(K, K))
 {
+   // Copy of auxkeys and auxValues
+   Array<K> auxKeys = m.keys;
+   Array<V> auxValues = m.values;
+   // Create an empty values array with the cap of the prev values array
+   Array<V> newValues = arr<V>();
+   newValues.cap = arraySize<V>(m.values);
+   arraySort<K>(m.keys, cmpKK);
+   int counter = 0;
+   // Iterate over the old keys array
+   while (counter < arraySize(auxKeys.arr))
+   {
+      K prevKey = *arrayGet<K>(auxKeys, counter);
+      V prevValue = *arrayGet<K>(auxValues, counter);
+      // Find the old key in the new sorted key array and get the index
+      int newPos = arrayFind<K, V>(m.keys, prevKey, cmpKV);
+      // Assign to the newValues in the new index the old value
+      arrayInsert<V>(newValues, prevValue, newPos);
+   }
+   // override the old values array with the new sorted values array
+   m.values = newValues;
 }
 
 template <typename K, typename V>
 void mapSortByValues(Map<K, V> &m, int cmpVV(V, V))
 {
+   Array<K> auxKeys = m.keys;
+   Array<V> auxValues = m.values;
+   Array<K> newKeys = arr<V>();
+   newKeys.cap = arraySize<V>(m.keys);
+   arraySort<K>(m.values, cmpVV);
+   int counter = 0;
+   // Iterate over the old keys array
+   while (counter < arraySize(auxValuesarr))
+   {
+      V prevValue = *arrayGet<V>(auxValues, counter);
+      K prevKey = *arrayGet<K>(auxKeys, counter);
+      int newPos = arrayFind<K, V>(m.values, prevValue, cmpKV);
+      arrayInsert<V>(newKeys, prevKey, newPos);
+   }
+   m.keys = newKeys;
 }
 
 #endif
