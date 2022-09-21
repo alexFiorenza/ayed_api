@@ -88,7 +88,7 @@ template <typename K, typename V>
 V mapRemove(Map<K, V> &m, K k)
 {
    V v;
-   int index = arrayFind<K, K>(m.keys, k, cmpKK);
+   int index = arrayFind<K, K>(m.keys, k, cmpKV);
    arrayRemove<K>(m.keys, index);
    arrayRemove<V>(m.values, index);
    return v;
@@ -176,7 +176,7 @@ void mapSortByValues(Map<K, V> &m, int cmpVV(V, V))
    arraySort<K>(m.values, cmpVV);
    int counter = 0;
    // Iterate over the old keys array
-   while (counter < arraySize(auxValuesarr))
+   while (counter < arraySize(auxValues))
    {
       V prevValue = *arrayGet<V>(auxValues, counter);
       K prevKey = *arrayGet<K>(auxKeys, counter);

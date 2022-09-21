@@ -14,12 +14,17 @@
 using namespace std;
 int main()
 {
-   Map<string, int> m = map<string, int>();
-   mapPut<string, int>(m, "uno", 1);
-   mapPut<string, int>(m, "dos", 2);
-   mapPut<string, int>(m, "tres", 3);
-   int *p = mapGet<string, int>(m, "tres");
-   cout << *p << endl;
+   Node<int> *p = NULL;
+   addFirst<int>(p, 1);
+   addFirst<int>(p, 2);
+   addFirst<int>(p, 3);
+
+   Node<int> *q = p;
+   while (q != NULL)
+   {
+      cout << q->info << endl;
+      q = q->next;
+   }
    return 0;
 }
 
