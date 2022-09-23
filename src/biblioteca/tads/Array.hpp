@@ -28,6 +28,7 @@ struct Array
    T *arr;
 };
 
+// A function that creates an array of type T.
 template <typename T>
 Array<T> arr()
 {
@@ -38,6 +39,7 @@ Array<T> arr()
    return ret;
 }
 
+// Adding an element to the array.
 template <typename T>
 int arrayAdd(Array<T> &a, T t)
 {
@@ -70,18 +72,21 @@ void arrayInsert(Array<T> &a, T t, int p)
    insert<T>(a.arr, a.len, t, p);
 }
 
+// Returning the length of the array.
 template <typename T>
 int arraySize(Array<T> a)
 {
    return a.len;
 }
 
+// Removing an element from the array.
 template <typename T>
 T arrayRemove(Array<T> &a, int p)
 {
    return remove(a.arr, a.len, p);
 }
 
+// Deleting the array and then creating a new one.
 template <typename T>
 void arrayRemoveAll(Array<T> &a)
 {
@@ -98,6 +103,7 @@ int arrayFind(Array<T> a, K k, int cmpTK(T, K))
    return find<T, K>(a.arr, a.len, k, cmpTK);
 }
 
+// Inserting an element in the array at position p.
 template <typename T>
 int arrayOrderedInsert(Array<T> &a, T t, int cmpTT(T, T))
 {
@@ -108,6 +114,7 @@ int arrayOrderedInsert(Array<T> &a, T t, int cmpTT(T, T))
    return orderedInsert<T>(a.arr, a.len, t, cmpTT);
 }
 
+// Sorting the array.
 template <typename T>
 void arraySort(Array<T> &a, int cmpTT(T, T))
 {

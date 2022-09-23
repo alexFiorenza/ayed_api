@@ -85,5 +85,4 @@ void sort(T arr[], int len, int cmpTT(T, T))
       }
    }
 }
-
 #endif
