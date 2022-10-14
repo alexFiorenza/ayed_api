@@ -86,7 +86,7 @@ template <typename T>
 T removeFirst(Node<T> *&p)
 {
    Node<T> *aux = p;
-   if (p != NULL &&p->next != = NULL)
+   if (p != NULL && p->next != NULL)
    {
       T data = aux->info;
       p = aux->next;
@@ -149,10 +149,12 @@ Node<T> *orderedInsert(Node<T> *&p, T e, int cmpTT(T, T))
          {
 
             Node<T> *next = aux->next;
-            if (cmpTK(next->info, k) <= 0)
+            if (cmpTK(e, next->info) <= 0)
             {
                Node<T> *newNode = new Node<T>();
-               // Insert a new node between the one that I'm iterating and the next one
+               // aux -> nextNode
+               // aux -> newNode -> nextNode
+               //  Insert a new node between the one that I'm iterating and the next one
                newNode->info = e;
                newNode->next = next;
                aux->next = newNode;
