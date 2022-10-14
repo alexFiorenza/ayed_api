@@ -243,14 +243,13 @@ void free(Node<T> *&p)
 template <typename T>
 Node<T> *push(Node<T> *&p, T e)
 {
-   return NULL;
+   return addFirst<T>(p, e);
 }
 
 template <typename T>
 T pop(Node<T> *&p)
 {
-   T t;
-   return t;
+   return removeFirst<T>(p);
 }
 
 template <typename T>
